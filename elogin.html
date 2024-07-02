@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Log In | HAFTA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="stylelogin.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        header h1 {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 32px;
+        }
+
+        nav ul li a {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        h1, p {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .loginbox h1, .loginbox p {
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>HAFTA</h1>
+            <ul id="navli">
+                <li><a class="homeblack" href="index.html">HOME</a></li>
+                <li><a class="homered" href="elogin.html">Employee Login</a></li>
+                <li><a class="homeblack" href="alogin.html">Admin Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="divider"></div>
+
+    <div class="loginbox">
+        <img src="assets/avatar.png" class="avatar">
+        <h1>Login Here</h1>
+        <form action="process/eprocess.php" method="POST">
+            <p>Email</p>
+            <input type="text" name="mailuid" placeholder="Enter Email Address" required="required">
+            <p>Password</p>
+            <input type="password" name="pwd" placeholder="Enter Password" required="required">
+            <input type="submit" name="login-submit" value="Login">
+        </form>
+    </div>
+</body>
+</html>
