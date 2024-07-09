@@ -22,6 +22,7 @@ $result = mysqli_query($conn, $sql);
 				<li><a class="homeblack" href="assign.php">Assign Project</a></li>
 				<li><a class="homeblack" href="assignproject.php">Project Status</a></li>
 				<li><a class="homeblack" href="salaryemp.php">Salary Table</a></li>
+				<li><a class="homeblack" href="add_bonus.php">Bonuses</a></li>
 				<li><a class="homeblack" href="empleave.php">Employee Leave</a></li>
 				<li><a class="homeblack" href="alogin.html">Log Out</a></li>
 			</ul>

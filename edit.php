@@ -1,72 +1,65 @@
 <?php
 
-require_once ('process/dbh.php');
-$sql = "SELECT * FROM `employee` WHERE 1";
+require_once('process/dbh.php');
+$sql = "SELECT e.*, s.base, s.bonus FROM `employee` e LEFT JOIN `salary` s ON e.id = s.id WHERE 1";
 
 //echo "$sql";
 $result = mysqli_query($conn, $sql);
-if(isset($_POST['update']))
-{
+if (isset($_POST['update'])) {
 
-	$id = mysqli_real_escape_string($conn, $_POST['id']);
-	$firstname = mysqli_real_escape_string($conn, $_POST['firstName']);
-	$lastname = mysqli_real_escape_string($conn, $_POST['lastName']);
-	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$birthday = mysqli_real_escape_string($conn, $_POST['birthday']);
-	$contact = mysqli_real_escape_string($conn, $_POST['contact']);
-	$address = mysqli_real_escape_string($conn, $_POST['address']);
-	$gender = mysqli_real_escape_string($conn, $_POST['gender']);
-	$nid = mysqli_real_escape_string($conn, $_POST['nid']);
-	$dept = mysqli_real_escape_string($conn, $_POST['dept']);
-	$degree = mysqli_real_escape_string($conn, $_POST['degree']);
-	//$salary = mysqli_real_escape_string($conn, $_POST['salary']);
+    $id = mysqli_real_escape_string($conn, $_POST['id']);
+    $firstname = mysqli_real_escape_string($conn, $_POST['firstName']);
+    $lastname = mysqli_real_escape_string($conn, $_POST['lastName']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $birthday = mysqli_real_escape_string($conn, $_POST['birthday']);
+    $contact = mysqli_real_escape_string($conn, $_POST['contact']);
+    $address = mysqli_real_escape_string($conn, $_POST['address']);
+    $gender = mysqli_real_escape_string($conn, $_POST['gender']);
+    $nid = mysqli_real_escape_string($conn, $_POST['nid']);
+    $dept = mysqli_real_escape_string($conn, $_POST['dept']);
+    $degree = mysqli_real_escape_string($conn, $_POST['degree']);
+    $base = mysqli_real_escape_string($conn, $_POST['base']);
+    $bonus = mysqli_real_escape_string($conn, $_POST['bonus']);
 
+    $updateEmployee = "UPDATE `employee` SET `firstName`='$firstname', `lastName`='$lastname', `email`='$email', `birthday`='$birthday', `gender`='$gender', `contact`='$contact', `nid`='$nid', `address`='$address', `dept`='$dept', `degree`='$degree' WHERE id=$id";
+    $updateSalary = "UPDATE `salary` SET `base`='$base', `bonus`='$bonus' WHERE id=$id";
 
+    mysqli_query($conn, $updateEmployee);
+    mysqli_query($conn, $updateSalary);
 
-
-
-	// $result = mysqli_query($conn, "UPDATE `employee` SET `firstName`='$firstname',`lastName`='$lastname',`email`='$email',`password`='$email',`gender`='$gender',`contact`='$contact',`nid`='$nid',`salary`='$salary',`address`='$address',`dept`='$dept',`degree`='$degree' WHERE id=$id");
-
-
-$result = mysqli_query($conn, "UPDATE `employee` SET `firstName`='$firstname',`lastName`='$lastname',`email`='$email',`birthday`='$birthday',`gender`='$gender',`contact`='$contact',`nid`='$nid',`address`='$address',`dept`='$dept',`degree`='$degree' WHERE id=$id");
-	echo ("<SCRIPT LANGUAGE='JavaScript'>
-    window.alert('Succesfully Updated')
+    echo ("<SCRIPT LANGUAGE='JavaScript'>
+    window.alert('Successfully Updated')
     window.location.href='viewemp.php';
     </SCRIPT>");
-
-
-	
 }
+
 ?>
 
-
-
-
 <?php
-	$id = (isset($_GET['id']) ? $_GET['id'] : '');
-	$sql = "SELECT * from `employee` WHERE id=$id";
-	$result = mysqli_query($conn, $sql);
-	if($result){
-	while($res = mysqli_fetch_assoc($result)){
-	$firstname = $res['firstName'];
-	$lastname = $res['lastName'];
-	$email = $res['email'];
-	$contact = $res['contact'];
-	$address = $res['address'];
-	$gender = $res['gender'];
-	$birthday = $res['birthday'];
-	$nid = $res['nid'];
-	$dept = $res['dept'];
-	$degree = $res['degree'];
-	
+$id = (isset($_GET['id']) ? $_GET['id'] : '');
+$sql = "SELECT e.*, s.base, s.bonus FROM `employee` e LEFT JOIN `salary` s ON e.id = s.id WHERE e.id=$id";
+$result = mysqli_query($conn, $sql);
+if ($result) {
+    while ($res = mysqli_fetch_assoc($result)) {
+        $firstname = $res['firstName'];
+        $lastname = $res['lastName'];
+        $email = $res['email'];
+        $birthday = $res['birthday'];
+        $gender = $res['gender'];
+        $contact = $res['contact'];
+        $nid = $res['nid'];
+        $address = $res['address'];
+        $dept = $res['dept'];
+        $degree = $res['degree'];
+        $base = $res['base'];
+        $bonus = $res['bonus'];
+    }
 }
-}
-
 ?>
 
 <html>
 <head>
-	<title>View Employee |  Admin Panel | HAFTA</title>
+	<title>View Employee |  Admin Panel | Employee Management System</title>
 	<!-- Icons font CSS-->
     <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
     <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
@@ -83,7 +76,7 @@ $result = mysqli_query($conn, "UPDATE `employee` SET `firstName`='$firstname',`l
 <body>
 	<header>
 		<nav>
-			<h1>HAFTA</h1>
+			<h1>EMS</h1>
 			<ul id="navli">
 				<li><a class="homeblack" href="index.html">HOME</a></li>
 				<li><a class="homeblack" href="addemp.php">Add Employee</a></li>
@@ -158,6 +151,12 @@ $result = mysqli_query($conn, "UPDATE `employee` SET `firstName`='$firstname',`l
 
                         <div class="input-group">
                             <input class="input--style-1" type="text" name="degree" value="<?php echo $degree;?>">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="number" name="base" value="<?php echo $base;?>">
+                        </div>
+                        <div class="input-group">
+                            <input class="input--style-1" type="number" name="bonus" value="<?php echo $bonus;?>">
                         </div>
                         <input type="hidden" name="id" id="textField" value="<?php echo $id;?>" required="required"><br><br>
                         <div class="p-t-20">
